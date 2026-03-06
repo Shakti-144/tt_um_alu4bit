@@ -22,6 +22,22 @@ module tt_um_alu4bit (
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, , 1'b0};
-
+  wire _unused = &{ena, ulo_in[2],ulo_in[3],ulo_in[4],ulo_in[5],ulo_in[6],ulo_in[7], 1'b0};
+reg[3:0] result;
+    wire[3:0] result;
+    assign a= ui_in[3:0];
+    assign b-ui_in[7:4];
+    wire[1:0] op;
+    assign op = uio_in[1:0];
+    always @(posedge clk) begin
+        
+    if(irst_n)
+        result<=0;
+    else
+        case(op)
+           2'b00:result <=a+b;
+           2'b01:result <=a-b;
+           2'b10:result <=a & b;
+           2'b11:result <= a|b;
+        endcase
 endmodule
